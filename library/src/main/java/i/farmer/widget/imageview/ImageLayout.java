@@ -112,7 +112,7 @@ public class ImageLayout extends FrameLayout {
     /**
      * 外部调用
      */
-    public static class ImageView extends AppCompatImageView {
+    public static class ImageView extends RatioImageView {
         private ImageViewDelegate viewDelegate;
 
         public ImageView(@NonNull Context context, @Nullable AttributeSet attrs,
@@ -130,4 +130,5 @@ public class ImageLayout extends FrameLayout {
             viewDelegate.getImageLayout().setRadius(radius);
         }
     }
+
 }

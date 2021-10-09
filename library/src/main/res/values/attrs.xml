@@ -16,5 +16,20 @@
         <attr name="borderColor" />
         <attr name="borderWidth" />
         <attr name="shape" />
+        <attr name="ratioWidth" />
+        <attr name="ratioHeight" />
+        <attr name="referTo" />
+    </declare-styleable>
+    <!--约束比例关系-->
+    <attr name="referTo" format="enum">
+        <enum name="Width" value="0" />
+        <enum name="Height" value="1" />
+    </attr>
+    <attr name="ratioWidth" format="integer" />
+    <attr name="ratioHeight" format="integer" />
+    <declare-styleable name="RatioImageView">
+        <attr name="ratioWidth" />
+        <attr name="ratioHeight" />
+        <attr name="referTo" />
     </declare-styleable>
 </resources>
