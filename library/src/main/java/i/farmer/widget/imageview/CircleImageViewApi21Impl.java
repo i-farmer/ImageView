@@ -11,7 +11,7 @@ import androidx.annotation.RequiresApi;
  * @description 圆形
  */
 @RequiresApi(21)
-public class CircleImageViewApi21Impl implements ImageViewImpl {
+class CircleImageViewApi21Impl implements ImageViewImpl {
     private boolean referToWidth;
 
     @Override
