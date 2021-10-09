@@ -27,7 +27,6 @@ public class ImageLayout extends FrameLayout {
     public ImageLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         int imageId = 0;
-        TypedArray tr = null;
         float radius = 0.f;
         boolean isCircle = false;       // 是否圆形
         float borderWidth = 0.f;
@@ -37,6 +36,7 @@ public class ImageLayout extends FrameLayout {
         boolean referToWidth = true;    // 如果约束比例，参照宽 还是 高
 
         if (null != attrs) {
+            TypedArray tr = null;
             try {
                 tr = context.obtainStyledAttributes(attrs, R.styleable.ImageLayout);
                 imageId = tr.getResourceId(R.styleable.ImageLayout_imageId, imageId);
