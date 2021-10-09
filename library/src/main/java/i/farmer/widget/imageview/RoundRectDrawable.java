@@ -89,7 +89,6 @@ class RoundRectDrawable extends Drawable {
         return PixelFormat.TRANSLUCENT;
     }
 
-
     @Override
     public boolean isStateful() {
         return false;
