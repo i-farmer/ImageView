@@ -19,7 +19,7 @@ class RoundImageViewApi21Impl implements ImageViewImpl {
     @Override
     public void initialize(ImageViewDelegate imageView, Context context, float radius,
                            float borderWidth, int borderColor) {
-        final RoundRectDrawable background = new RoundRectDrawable(null, radius);
+        final RoundRectDrawable background = new RoundRectDrawable(radius);
         imageView.setBackground(background);
 
         View view = imageView.getImageLayout();
@@ -32,13 +32,24 @@ class RoundImageViewApi21Impl implements ImageViewImpl {
     }
 
     @Override
-    public void setCornerRadius(ImageViewDelegate imageView, float radius) {
+    public void setRadius(ImageViewDelegate imageView, float radius) {
         getClipBackground(imageView).setRadius(radius);
         View view = imageView.getImageLayout();
         view.setClipToOutline(true);
         RoundBorderDrawable border = getBorder(imageView);
         if (null != border) {
             border.setRadius(radius);
+        }
+    }
+
+    @Override
+    public void setBorder(ImageViewDelegate imageView, float width, int color) {
+        RoundBorderDrawable border = getBorder(imageView);
+        if (null == border) {
+            border = new RoundBorderDrawable(getClipBackground(imageView).getRadius(), width, color);
+            imageView.setBorder(border);
+        } else {
+            border.setBorder(width, color);
         }
     }
 

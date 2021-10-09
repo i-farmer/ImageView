@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".MainActivity">
@@ -12,9 +13,9 @@
         android:id="@+id/mImageView1"
         android:layout_width="300dp"
         android:layout_height="200dp"
-        android:radius="100dp"
-        android:src="@drawable/test_icon"
-        app:borderColor="#99CC00"
+        android:background="#00FFFF"
+        android:radius="30dp"
+        app:borderColor="#FFFFFF"
         app:borderWidth="10dp" />
 
     <i.farmer.widget.imageview.ImageLayout

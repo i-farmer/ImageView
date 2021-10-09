@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -85,7 +86,11 @@ public class ImageLayout extends FrameLayout {
     }
 
     public void setRadius(float radius) {
-        IMPL.setCornerRadius(viewDelegate, radius);
+        IMPL.setRadius(viewDelegate, radius);
+    }
+
+    public void setBorder(float width, @ColorInt int color) {
+        IMPL.setBorder(viewDelegate, width, color);
     }
 
     @Override
@@ -139,25 +144,29 @@ public class ImageLayout extends FrameLayout {
      * 外部调用
      */
     public static class ImageView extends AppCompatImageView {
-        private ImageViewDelegate viewDelegate;
+        private ImageViewDelegate delegate;
 
         public ImageView(@NonNull Context context, @Nullable AttributeSet attrs,
                          ImageViewDelegate delegate) {
             super(context, attrs);
-            this.viewDelegate = delegate;
+            this.delegate = delegate;
         }
 
         @Override
         public void setVisibility(int visibility) {
-            viewDelegate.getImageLayout().setVisibility(visibility);
+            delegate.getImageLayout().setVisibility(visibility);
         }
 
         public void setRadius(float radius) {
-            viewDelegate.getImageLayout().setRadius(radius);
+            delegate.getImageLayout().setRadius(radius);
         }
 
         public void setRatio(int width, int height, boolean referToWidth) {
-            viewDelegate.getImageLayout().setRatio(width, height, referToWidth);
+            delegate.getImageLayout().setRatio(width, height, referToWidth);
+        }
+
+        public void setBorder(float width, @ColorInt int color) {
+            delegate.getImageLayout().setBorder(width, color);
         }
     }
 

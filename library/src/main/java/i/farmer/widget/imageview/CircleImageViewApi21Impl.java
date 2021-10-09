@@ -17,7 +17,7 @@ class CircleImageViewApi21Impl implements ImageViewImpl {
     @Override
     public void initialize(ImageViewDelegate imageView, Context context, float radius,
                            float borderWidth, int borderColor) {
-        final CircleDrawable background = new CircleDrawable(null);
+        final CircleDrawable background = new CircleDrawable();
         imageView.setBackground(background);
 
         View view = imageView.getImageLayout();
@@ -30,8 +30,19 @@ class CircleImageViewApi21Impl implements ImageViewImpl {
     }
 
     @Override
-    public void setCornerRadius(ImageViewDelegate imageView, float radius) {
+    public void setRadius(ImageViewDelegate imageView, float radius) {
         // NO-OP
+    }
+
+    @Override
+    public void setBorder(ImageViewDelegate imageView, float width, int color) {
+        CircleBorderDrawable border = getBorder(imageView);
+        if (null == border) {
+            final CircleBorderDrawable borderDrawable = new CircleBorderDrawable(width, color);
+            imageView.setBorder(borderDrawable);
+        } else {
+            border.setBorder(width, color);
+        }
     }
 
     @Override
@@ -49,5 +60,9 @@ class CircleImageViewApi21Impl implements ImageViewImpl {
             width = height = imageView.getImageLayout().getMeasuredHeight();
         }
         imageView.setMeasuredDimension(width, height);
+    }
+
+    private CircleBorderDrawable getBorder(ImageViewDelegate cardView) {
+        return ((CircleBorderDrawable) cardView.getBorder());
     }
 }

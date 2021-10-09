@@ -21,16 +21,15 @@ import androidx.annotation.RequiresApi;
 class CircleBorderDrawable extends Drawable {
     private final Paint mPaint;
     private final RectF mBoundsF;
-    private final Rect mBoundsI;
 
     CircleBorderDrawable(float width, int color) {
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
         mPaint.setColor(color);
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeWidth(width);
+        mPaint.clearShadowLayer();
 
         mBoundsF = new RectF();
-        mBoundsI = new Rect();
     }
 
     @Override
@@ -48,8 +47,6 @@ class CircleBorderDrawable extends Drawable {
                 bounds.top + halfWidth,
                 bounds.right - halfWidth,
                 bounds.bottom - halfWidth);
-        mBoundsI.set(bounds);
-        mBoundsI.inset((int) Math.ceil(halfWidth), (int) Math.ceil(halfWidth));
     }
 
     @Override
@@ -57,12 +54,6 @@ class CircleBorderDrawable extends Drawable {
         super.onBoundsChange(bounds);
         updateBounds(bounds);
     }
-
-    @Override
-    public void getOutline(Outline outline) {
-        outline.setOval(mBoundsI);
-    }
-
 
     @Override
     public void setAlpha(int alpha) {
@@ -79,8 +70,10 @@ class CircleBorderDrawable extends Drawable {
         return PixelFormat.TRANSLUCENT;
     }
 
-    public void setColor(@ColorInt int color) {
+    public void setBorder(float width, @ColorInt int color) {
+        mPaint.setStrokeWidth(width);
         mPaint.setColor(color);
+        updateBounds(null);
         invalidateSelf();
     }
 }

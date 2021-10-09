@@ -2,6 +2,8 @@ package i.farmer.widget.imageview;
 
 import android.content.Context;
 
+import androidx.annotation.ColorInt;
+
 /**
  * @author i-farmer
  * @created-time 2021/9/30 5:04 下午
@@ -11,7 +13,9 @@ interface ImageViewImpl {
     void initialize(ImageViewDelegate imageView, Context context, float radius,
                     float borderWidth, int borderColor);
 
-    void setCornerRadius(ImageViewDelegate imageView, float radius);
+    void setRadius(ImageViewDelegate imageView, float radius);
+
+    void setBorder(ImageViewDelegate imageView, float width, @ColorInt int color);
 
     void setRatio(int width, int height, boolean referToWidth);
 

@@ -2,7 +2,6 @@ package i.farmer.widget.imageview;
 
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
-import android.graphics.Outline;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
@@ -21,7 +20,6 @@ import androidx.annotation.RequiresApi;
 class RoundBorderDrawable extends Drawable {
     private final Paint mPaint;
     private final RectF mBoundsF;
-    private final Rect mBoundsI;
     private float mRadius;
 
     RoundBorderDrawable(float radius, float width, int color) {
@@ -30,16 +28,17 @@ class RoundBorderDrawable extends Drawable {
         mPaint.setColor(color);
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeWidth(width);
+        mPaint.clearShadowLayer();
 
         mBoundsF = new RectF();
-        mBoundsI = new Rect();
     }
 
     @Override
     public void draw(Canvas canvas) {
         final Paint paint = mPaint;
         float halfWidth = mPaint.getStrokeWidth() / 2.f;
-        canvas.drawRoundRect(mBoundsF, mRadius - halfWidth, mRadius - halfWidth, paint);
+        float inset = (int) halfWidth;
+        canvas.drawRoundRect(mBoundsF, mRadius - inset, mRadius - inset, paint);
     }
 
     private void updateBounds(Rect bounds) {
@@ -47,23 +46,14 @@ class RoundBorderDrawable extends Drawable {
             bounds = getBounds();
         }
         float halfWidth = mPaint.getStrokeWidth() / 2.f;
-        mBoundsF.set(bounds.left + halfWidth,
-                bounds.top + halfWidth,
-                bounds.right - halfWidth,
-                bounds.bottom - halfWidth);
-        mBoundsI.set(bounds);
-        mBoundsI.inset((int) Math.ceil(halfWidth), (int) Math.ceil(halfWidth));
+        mBoundsF.set(bounds);
+        mBoundsF.inset((int) halfWidth, (int) halfWidth);
     }
 
     @Override
     protected void onBoundsChange(Rect bounds) {
         super.onBoundsChange(bounds);
         updateBounds(bounds);
-    }
-
-    @Override
-    public void getOutline(Outline outline) {
-        outline.setRoundRect(mBoundsI, mRadius);
     }
 
     @Override
@@ -81,8 +71,10 @@ class RoundBorderDrawable extends Drawable {
         return PixelFormat.TRANSLUCENT;
     }
 
-    public void setColor(@ColorInt int color) {
+    public void setBorder(float width, @ColorInt int color) {
+        mPaint.setStrokeWidth(width);
         mPaint.setColor(color);
+        updateBounds(null);
         invalidateSelf();
     }
 
