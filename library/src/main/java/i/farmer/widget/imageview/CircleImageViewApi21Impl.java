@@ -12,6 +12,8 @@ import androidx.annotation.RequiresApi;
  */
 @RequiresApi(21)
 public class CircleImageViewApi21Impl implements ImageViewImpl {
+    private boolean referToWidth;
+
     @Override
     public void initialize(ImageViewDelegate imageView, Context context, float radius,
                            float borderWidth, int borderColor) {
@@ -30,5 +32,22 @@ public class CircleImageViewApi21Impl implements ImageViewImpl {
     @Override
     public void setCornerRadius(ImageViewDelegate imageView, float radius) {
         // NO-OP
+    }
+
+    @Override
+    public void setRatio(int width, int height, boolean referToWidth) {
+        this.referToWidth = referToWidth;
+    }
+
+    @Override
+    public void onMeasure(ImageViewDelegate imageView, int widthMeasureSpec, int heightMeasureSpec) {
+        int width;
+        int height;
+        if (referToWidth) {
+            width = height = imageView.getImageLayout().getMeasuredWidth();
+        } else {
+            width = height = imageView.getImageLayout().getMeasuredHeight();
+        }
+        imageView.setMeasuredDimension(width, height);
     }
 }

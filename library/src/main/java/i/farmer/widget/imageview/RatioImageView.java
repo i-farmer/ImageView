@@ -16,7 +16,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 public class RatioImageView extends AppCompatImageView {
     private int ratioWidth = -1;
     private int ratioHeight = -1;
-    private boolean referToWidth = true;      // 看是根据宽度为基准计算高度，还是以高度为基准计算宽度
+    private boolean referToWidth = true;      // 如果约束比例，参照宽 还是 高
 
     public RatioImageView(@NonNull Context context) {
         this(context, null);

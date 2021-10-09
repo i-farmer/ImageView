@@ -42,4 +42,12 @@ interface ImageViewDelegate {
      * @return
      */
     Drawable getBorder();
+
+    /**
+     * 设置尺寸
+     *
+     * @param measuredWidth
+     * @param measuredHeight
+     */
+    void setMeasuredDimension(int measuredWidth, int measuredHeight);
 }

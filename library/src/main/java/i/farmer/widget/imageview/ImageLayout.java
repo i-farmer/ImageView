@@ -29,9 +29,12 @@ public class ImageLayout extends FrameLayout {
         int imageId = 0;
         TypedArray tr = null;
         float radius = 0.f;
-        boolean isCircle = false;   // 是否圆形
+        boolean isCircle = false;       // 是否圆形
         float borderWidth = 0.f;
         int borderColor = 0;
+        int ratioWidth = -1;
+        int ratioHeight = -1;
+        boolean referToWidth = true;    // 如果约束比例，参照宽 还是 高
 
         if (null != attrs) {
             try {
@@ -41,6 +44,9 @@ public class ImageLayout extends FrameLayout {
                 isCircle = tr.getInt(R.styleable.ImageLayout_shape, 0) == 1;
                 borderWidth = tr.getDimension(R.styleable.ImageLayout_borderWidth, borderWidth);
                 borderColor = tr.getColor(R.styleable.ImageLayout_borderColor, borderColor);
+                ratioWidth = tr.getInteger(R.styleable.ImageLayout_ratioWidth, ratioWidth);
+                ratioHeight = tr.getInteger(R.styleable.ImageLayout_ratioHeight, ratioHeight);
+                referToWidth = tr.getInt(R.styleable.ImageLayout_referTo, 0) == 0;
             } catch (Exception ex) {
 
             } finally {
@@ -71,10 +77,21 @@ public class ImageLayout extends FrameLayout {
             IMPL = new RoundImageViewApi21Impl();
         }
         IMPL.initialize(viewDelegate, context, radius, borderWidth, borderColor);
+        IMPL.setRatio(ratioWidth, ratioHeight, referToWidth);
+    }
+
+    public void setRatio(int width, int height, boolean referToWidth) {
+        IMPL.setRatio(width, height, referToWidth);
     }
 
     public void setRadius(float radius) {
         IMPL.setCornerRadius(viewDelegate, radius);
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        IMPL.onMeasure(viewDelegate, widthMeasureSpec, heightMeasureSpec);
     }
 
     private ImageViewDelegate viewDelegate = new ImageViewDelegate() {
@@ -107,12 +124,21 @@ public class ImageLayout extends FrameLayout {
         public Drawable getBorder() {
             return mBorder;
         }
+
+        @Override
+        public void setMeasuredDimension(int measuredWidth, int measuredHeight) {
+            ImageLayout.this.setMeasuredDimension(measuredWidth, measuredHeight);
+            // 重新计算子视图
+            int widthMeasureSpec2 = MeasureSpec.makeMeasureSpec(measuredWidth, MeasureSpec.EXACTLY);
+            int heightMeasureSpec2 = MeasureSpec.makeMeasureSpec(measuredHeight, MeasureSpec.EXACTLY);
+            measureChildren(widthMeasureSpec2, heightMeasureSpec2);
+        }
     };
 
     /**
      * 外部调用
      */
-    public static class ImageView extends RatioImageView {
+    public static class ImageView extends AppCompatImageView {
         private ImageViewDelegate viewDelegate;
 
         public ImageView(@NonNull Context context, @Nullable AttributeSet attrs,
@@ -128,6 +154,10 @@ public class ImageLayout extends FrameLayout {
 
         public void setRadius(float radius) {
             viewDelegate.getImageLayout().setRadius(radius);
+        }
+
+        public void setRatio(int width, int height, boolean referToWidth) {
+            viewDelegate.getImageLayout().setRatio(width, height, referToWidth);
         }
     }
 

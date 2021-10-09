@@ -12,4 +12,8 @@ interface ImageViewImpl {
                     float borderWidth, int borderColor);
 
     void setCornerRadius(ImageViewDelegate imageView, float radius);
+
+    void setRatio(int width, int height, boolean referToWidth);
+
+    void onMeasure(ImageViewDelegate imageView, int widthMeasureSpec, int heightMeasureSpec);
 }

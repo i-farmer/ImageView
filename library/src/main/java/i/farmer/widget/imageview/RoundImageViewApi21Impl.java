@@ -12,6 +12,10 @@ import androidx.annotation.RequiresApi;
  */
 @RequiresApi(21)
 class RoundImageViewApi21Impl implements ImageViewImpl {
+    private int ratioWidth;         // 约束比例
+    private int ratioHeight;
+    private boolean referToWidth;
+
     @Override
     public void initialize(ImageViewDelegate imageView, Context context, float radius,
                            float borderWidth, int borderColor) {
@@ -44,5 +48,28 @@ class RoundImageViewApi21Impl implements ImageViewImpl {
 
     private RoundBorderDrawable getBorder(ImageViewDelegate cardView) {
         return ((RoundBorderDrawable) cardView.getBorder());
+    }
+
+    @Override
+    public void setRatio(int width, int height, boolean referToWidth) {
+        this.ratioWidth = width;
+        this.ratioHeight = height;
+        this.referToWidth = referToWidth;
+    }
+
+    @Override
+    public void onMeasure(ImageViewDelegate imageView, int widthMeasureSpec, int heightMeasureSpec) {
+        if (ratioWidth > 0 && ratioHeight > 0) {
+            int width;
+            int height;
+            if (referToWidth) {
+                width = imageView.getImageLayout().getMeasuredWidth();
+                height = (int) (width * ratioHeight * 1.f / ratioWidth);
+            } else {
+                height = imageView.getImageLayout().getMeasuredHeight();
+                width = (int) (height * ratioWidth * 1.f / ratioHeight);
+            }
+            imageView.setMeasuredDimension(width, height);
+        }
     }
 }
