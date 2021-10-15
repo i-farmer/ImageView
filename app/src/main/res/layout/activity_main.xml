@@ -9,25 +9,24 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <i.farmer.widget.imageview.ImageLayout
-        android:id="@+id/mImageView1"
-        android:layout_width="300dp"
-        android:layout_height="200dp"
-        android:background="#00FFFF"
-        android:radius="30dp"
-        app:borderColor="#FFFFFF"
-        app:borderWidth="10dp" />
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="#000000"
+        android:padding="40dp">
 
-    <i.farmer.widget.imageview.ImageLayout
-        android:id="@+id/mImageView2"
-        android:layout_width="300dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="40dp"
-        android:radius="100dp"
-        android:src="@drawable/test_icon"
-        app:borderColor="#99CC00"
-        app:borderWidth="10dp"
-        app:referTo="Height"
-        app:shape="circle" />
+        <i.farmer.widget.ShapeImageView
+            android:layout_width="200dp"
+            android:layout_height="300dp"
+            android:radius="40dp"
+            app:backgroundEndColor="#ffff00"
+            app:backgroundIcon="@drawable/ic_launcher_foreground"
+            app:backgroundStartColor="#ffffff"
+            app:borderColor="#cc0000"
+            app:borderWidth="5dp"
+            app:referTo="Height"
+            app:shape="circle" />
+    </FrameLayout>
 
 </LinearLayout>

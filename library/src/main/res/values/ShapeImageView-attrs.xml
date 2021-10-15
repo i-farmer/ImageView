@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--约束比例关系-->
+    <attr name="ratioReferTo" format="enum">
+        <enum name="Width" value="0" />
+        <enum name="Height" value="1" />
+    </attr>
+    <attr name="ratioWidth" format="integer" />
+    <attr name="ratioHeight" format="integer" />
+    <attr name="backgroundColor" format="color" />
+    <attr name="borderColor" format="color" />
+    <attr name="borderWidth" format="dimension" />
+    <attr name="shape" format="enum">
+        <enum name="round" value="0" />
+        <enum name="circle" value="1" />
+    </attr>
+    <attr name="backgroundOrientation" format="enum">
+        <enum name="TOP_BOTTOM" value="0" />
+        <enum name="TR_BL" value="1" />
+        <enum name="RIGHT_LEFT" value="2" />
+        <enum name="BR_TL" value="3" />
+        <enum name="BOTTOM_TOP" value="4" />
+        <enum name="BL_TR" value="5" />
+        <enum name="LEFT_RIGHT" value="6" />
+        <enum name="TL_BR" value="7" />
+    </attr>
+    <declare-styleable name="ShapeImageView">
+        <attr name="backgroundColor" />
+        <attr name="backgroundStartColor" format="color" />
+        <attr name="backgroundCenterColor" format="color" />
+        <attr name="backgroundEndColor" format="color" />
+        <attr name="backgroundOrientation" />
+        <attr name="backgroundIcon" format="reference" />
+        <attr name="shape" />
+        <attr name="android:radius" />
+        <attr name="borderColor" />
+        <attr name="borderWidth" />
+        <attr name="ratioWidth" />
+        <attr name="ratioHeight" />
+        <attr name="ratioReferTo" />
+    </declare-styleable>
+</resources>
