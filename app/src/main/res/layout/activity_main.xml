@@ -13,8 +13,18 @@
         android:paddingVertical="40dp">
 
         <i.farmer.widget.image.ShapeImageView
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            android:background="#CCCCCC"
+            android:radius="40dp"
+            app:borderColor="@android:color/white"
+            app:borderWidth="5dp"
+            app:shape="rectangle" />
+
+        <i.farmer.widget.image.ShapeImageView
             android:layout_width="200dp"
             android:layout_height="300dp"
+            android:layout_marginTop="50dp"
             android:background="#CCCCCC"
             android:bottomLeftRadius="0dp"
             android:bottomRightRadius="80dp"
@@ -22,7 +32,6 @@
             android:src="#CC6666"
             app:borderColor="@android:color/white"
             app:borderWidth="5dp"
-            app:referTo="Height"
             app:shape="rectangle" />
 
         <i.farmer.widget.image.ShapeImageView
